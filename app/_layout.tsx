@@ -5,18 +5,24 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as Notifications from "expo-notifications";
-import { Stack } from "expo-router";
+import { Stack, Redirect } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 // import * as TaskManager from "expo-task-manager";
 
 import { useEffect } from "react";
-import "react-native-reanimated";
+
+// Fixed imports - use individual imports for now
+import { AuthProvider, useAuth } from "@/src";
+import {LoadingScreen} from "@/src";
+import { StatusProvider } from "@/src/context/StatusContext";
 
 import { NotificationProvider } from "@/context/NotificationContext";
+import * as firebase from "@/src/db/config";
+import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 
-
+console.log('Firebase initialized!', firebase.app.name ? `Success: ${firebase.app.name}` : 'Failed');
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldPlaySound: true,
@@ -64,13 +70,18 @@ export default function RootLayout() {
   }
 
   return (
-    <NotificationProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ThemeProvider>
-    </NotificationProvider>
+    <AuthProvider>
+      <StatusProvider>
+        <NotificationProvider>
+          <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+            <Stack>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </ThemeProvider>
+        </NotificationProvider>
+      </StatusProvider>
+    </AuthProvider>
   );
 }
