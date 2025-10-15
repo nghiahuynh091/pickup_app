@@ -1,23 +1,22 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
+import { Colors, useColorScheme } from "@/src";
+import { TabBarIcon } from "@/src/components";
 import React from "react";
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { Colors,useColorScheme } from "@/src";
-
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-
   return (
-    <Tabs screenOptions={{ 
-      tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      headerStyle: {backgroundColor: "#25292e"},
-      headerShadowVisible: false,
-      headerTintColor: '#fff',
-      tabBarStyle: {backgroundColor: '#25292e'},
-     }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        headerStyle: { backgroundColor: "#25292e" },
+        headerShadowVisible: false,
+        headerTintColor: "#fff",
+        tabBarStyle: { backgroundColor: "#25292e" },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -25,6 +24,19 @@ export default function TabLayout() {
           tabBarIcon: ({ focused, color }) => (
             <TabBarIcon
               name={focused ? "home-sharp" : "home-outline"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="status"
+        options={{
+          title: "Status",
+          tabBarIcon: ({ focused, color }) => (
+            <TabBarIcon
+              name={focused ? "pulse" : "pulse-outline"}
               color={color}
               size={24}
             />
