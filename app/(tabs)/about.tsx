@@ -1,16 +1,13 @@
 import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
-
-import {Collapsible, 
-        ExternalLink,
-        ParallaxScrollView, 
-        ThemedText,
-        ThemedView, 
-        } from "@/src";
-
-        
-import { IconSymbol } from "@/src/components/ui";
+import {
+  Collapsible,
+  ExternalLink,
+  IconSymbol,
+  ParallaxScrollView,
+  ThemedText,
+} from "@/src/components";
 export default function TabTwoScreen() {
   return (
     <ParallaxScrollView
@@ -24,9 +21,9 @@ export default function TabTwoScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
+      <View style={styles.titleContainer}>
         <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
+      </View>
       <ThemedText>
         This app includes example code to help you get started.
       </ThemedText>
@@ -116,6 +113,7 @@ export default function TabTwoScreen() {
         })}
       </Collapsible>
     </ParallaxScrollView>
+
   );
 }
 

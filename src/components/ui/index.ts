@@ -1,5 +1,8 @@
+export { StatusButtons } from './Button';
+export {Button } from './Button';
+
 // UI Components Barrel Export
-export { default as Button } from './Button';
+
 
 // Export types
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/Button.types';

@@ -6,3 +6,4 @@ export { default as ExternalLink } from './ExternalLink';
 export { default as HelloWave } from './HelloWave';
 export { default as ParallaxScrollView } from './ParallaxScrollView';
 export { default as DOMCoolCode } from './DOMCoolCode';
+export { default as LoadingScreen } from './LoadingScreen';
