@@ -12,9 +12,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 // Fixed imports - use individual imports for now
-import { AuthProvider, useAuth } from "@/src";
-import {LoadingScreen} from "@/src";
-import { StatusProvider } from "@/src/context/StatusContext";
+import { AuthProvider, useAuth,LoadingScreen,StatusProvider } from "@/src";
+
 
 import { NotificationProvider } from "@/context/NotificationContext";
 import * as firebase from "@/src/db/config";
