@@ -10,8 +10,7 @@ import Animated, {
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 import { useBottomTabOverflow } from "../ui/TabBarBackground/TabBarBackground";
-import { ThemedView } from "../ui";
-
+import {ThemedView} from "../ui";
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
