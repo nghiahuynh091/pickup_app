@@ -16,11 +16,14 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 export default function SettingScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [wifiEnabled, setWifiEnabled] = useState(true);
-
+  const navigateToAccount = () => {
+    router.push('/(auth)/login');
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
       {/* header */}
@@ -82,7 +85,7 @@ export default function SettingScreen() {
 
         <View style={{ paddingTop: 20 }}>
           {/* Account */}
-          <TouchableOpacity style={{ paddingVertical: 4 }}>
+          <TouchableOpacity style={{ paddingVertical: 4 }} onPress={navigateToAccount}>
             <View
               style={{
                 flexDirection: "row",
