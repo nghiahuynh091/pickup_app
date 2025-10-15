@@ -10,8 +10,9 @@ export interface ButtonProps {
   size?: ButtonSize;
   disabled?: boolean;
   loading?: boolean;
+  color?: string;
   onPress?: () => void;
   icon?: ReactNode;
-  style?: ViewStyle;
+  style?: ViewStyle | ViewStyle[];
   testID?: string;
 }
