@@ -2,7 +2,13 @@
 
 import { useNotification } from "@/src";
 import { ThemedText, ThemedView } from "@/src/components";
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 // import * as Updates from "expo-updates";
 import { useAuth } from "@/src";
 import { Button, StatusButtons } from "@/src/components/ui";
@@ -32,8 +38,8 @@ export default function Index() {
     // You can add additional logic here, like updating local state
   };
 
-  const { user, isAuthenticated, signInAnonymously } = useAuth();
-  const [toUserId, setToUserId] = useState("user123"); // Demo user ID
+  const { user, username, isAuthenticated, signInAnonymously } = useAuth();
+  const [toUserId, setToUserId] = useState("anonymous"); // Demo user ID
   const [sessionId, setSessionId] = useState("session456"); // Demo session ID
   const [messageText, setMessageText] = useState("");
   const [useSessionId, setUseSessionId] = useState(false);
@@ -129,6 +135,10 @@ export default function Index() {
           User: {user?.uid} ({user?.isAnonymous ? "Anonymous" : "Authenticated"}
           )
         </Text>
+        <Text style={styles.subtitle}>
+          User: {username} ({user?.isAnonymous ? "Anonymous" : "Authenticated"})
+        </Text>
+
         <ThemedText type="subtitle">Latest notification:</ThemedText>
         <ThemedText>{notification?.request.content.title}</ThemedText>
         <ThemedText>
@@ -136,7 +146,13 @@ export default function Index() {
         </ThemedText>
       </SafeAreaView>
 
-
+      <TextInput
+        style={styles.input}
+        placeholder="Reciever email"
+        value={toUserId}
+        onChangeText={setToUserId}
+        autoComplete="email"
+      />
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Status Buttons</Text>
 
@@ -145,7 +161,9 @@ export default function Index() {
             toUserId={useSessionId ? undefined : toUserId}
             sessionId={useSessionId ? sessionId : undefined}
             messageText={messageText || undefined}
-            onStatusCreated={() => sendNotification("Message from your friend", "Tao ddang toi ne")}
+            onStatusCreated={() =>
+              sendNotification("Message from your friend", "Tao ddang toi ne")
+            }
           />
 
           <StatusButtons.FiveMinLeft
@@ -165,9 +183,6 @@ export default function Index() {
           />
         </View>
       </View>
-
-
-
 
       {/* Instructions */}
       {/* <View style={styles.section}>

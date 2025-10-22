@@ -1,3 +1,4 @@
+import { useAuth } from "@/src";
 import {
   AntDesign,
   Entypo,
@@ -6,6 +7,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
@@ -16,13 +18,35 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 
 export default function SettingScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [wifiEnabled, setWifiEnabled] = useState(true);
+  const { signOut } = useAuth();
+
   const navigateToAccount = () => {
-    router.push('/(auth)/login');
+    router.push("/(auth)/login");
+  };
+
+  const handleLogout = async () => {
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await signOut();
+            router.replace("/(auth)/login");
+          } catch (err: any) {
+            Alert.alert("Logout failed", err?.message || "Unknown error");
+          }
+        },
+      },
+    ]);
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
@@ -85,7 +109,10 @@ export default function SettingScreen() {
 
         <View style={{ paddingTop: 20 }}>
           {/* Account */}
-          <TouchableOpacity style={{ paddingVertical: 4 }} onPress={navigateToAccount}>
+          <TouchableOpacity
+            style={{ paddingVertical: 4 }}
+            onPress={navigateToAccount}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -113,7 +140,10 @@ export default function SettingScreen() {
           </TouchableOpacity>
 
           {/* Notifications */}
-          <TouchableOpacity style={{ paddingVertical: 4 }}>
+          <TouchableOpacity
+            style={{ paddingVertical: 4 }}
+            onPress={handleLogout}
+          >
             <View
               style={{
                 flexDirection: "row",

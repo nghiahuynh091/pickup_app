@@ -1,20 +1,17 @@
-export type { 
-  NotificationContextType, 
+export type {
+  NotificationContextType,
   NotificationProviderProps,
-  PushNotificationRequest 
+  PushNotificationRequest
 } from './notification.types';
 
-export type { 
+export type {
   AuthContextType,
-  AuthProviderProps  
+  AuthProviderProps, UserDocument
 } from './auth.types';
 
 export type {
-  StatusDocument,
-  StatusType,
   CreateStatusRequest,
-  StatusContextType,
-  StatusProviderProps
+  StatusContextType, StatusDocument, StatusProviderProps, StatusType
 } from './status.types';
 
 // Add more type exports as you create them

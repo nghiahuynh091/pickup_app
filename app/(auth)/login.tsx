@@ -1,28 +1,27 @@
 // import Button from "@/components/Button";
 
-import { ThemedText, ThemedView, useNotification } from "@/src";
+import { ThemedText, ThemedView } from "@/src";
 
-import { Platform,
-        TextInput,
-        Alert, 
-        SafeAreaView, 
-        StatusBar, 
-        StyleSheet,
-        TouchableOpacity
-     } from "react-native";
+import { Alert, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 // import * as Updates from "expo-updates";
 
-import React, { useState } from "react";
 import { router } from "expo-router";
+import React, { useState } from "react";
 
-import { useAuth} from "@/src";
-import { AuthProvider } from "@/src";
+import { useAuth } from "@/src";
 
 import { Button } from "@/src/components/ui";
 function LoginProcess() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {signInAnonymously, isLoading, error } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
+  const {
+    signInAnonymously,
+    signInWithEmail,
+    signUpWithEmail,
+    isLoading,
+    error,
+  } = useAuth();
 
   // const { currentlyRunning, isUpdateAvailable, isUpdatePending } =
   //   Updates.useUpdates();
@@ -67,19 +66,40 @@ function LoginProcess() {
   // const runTypeMessage = currentlyRunning.isEmbeddedLaunch
   //   ? "This app is running from built-in code"
   //   : "This app is running an update";
-const handleAnonymousLogin = async () => {
-    await signInAnonymously().then(() => {
-            router.replace("/(tabs)");
-        }
-    ).catch((error: any) => {
-        Alert.alert('Anonymous Login Failed', error.message)
-    })
-}
-  return (
+  const handleAnonymousLogin = async () => {
+    await signInAnonymously()
+      .then(() => {
+        router.replace("/(tabs)");
+      })
+      .catch((error: any) => {
+        Alert.alert("Anonymous Login Failed", error.message);
+      });
+  };
 
+  const handleEmailLogin = async () => {
+    try {
+      await signInWithEmail(email, password);
+      router.replace("/(tabs)");
+    } catch (err: any) {
+      Alert.alert("Login failed", err?.message || "Unknown error");
+    }
+  };
+
+  const handleEmailSignUp = async () => {
+    try {
+      await signUpWithEmail(email, password);
+      Alert.alert("Success", "Account created! Please sign in.");
+      setIsSignUp(false);
+    } catch (err: any) {
+      Alert.alert("Sign up failed", err?.message || "Unknown error");
+    }
+  };
+  return (
     <ThemedView style={styles.container}>
-      <ThemedText style={styles.title}>Welcome Back</ThemedText>
-      
+      <ThemedText style={styles.title}>
+        {isSignUp ? "Create Account" : "Welcome Back"}
+      </ThemedText>
+
       {error && (
         <ThemedText style={styles.errorText}>{error.message}</ThemedText>
       )}
@@ -101,13 +121,13 @@ const handleAnonymousLogin = async () => {
         secureTextEntry
       />
 
-      {/* <Button
-        label="Login"
-        onPress={handleEmailLogin}
+      <Button
+        label={isSignUp ? "Sign Up" : "Login"}
+        onPress={isSignUp ? handleEmailSignUp : handleEmailLogin}
         loading={isLoading}
         variant="primary"
         style={styles.button}
-      /> */}
+      />
 
       <Button
         label="Continue as Guest"
@@ -116,37 +136,33 @@ const handleAnonymousLogin = async () => {
         style={styles.button}
       />
 
-      <TouchableOpacity >
+      <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
         <ThemedText style={styles.linkText}>
-          Don't have an account? Sign up
+          {isSignUp
+            ? "Already have an account? Sign in"
+            : "Don't have an account? Sign up"}
         </ThemedText>
       </TouchableOpacity>
     </ThemedView>
   );
 }
-export default function LoginScreen(){
-    return(
-        <AuthProvider>
-            <LoginProcess></LoginProcess>
-        </AuthProvider>
-    )
-}
+export default LoginProcess;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 30,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 15,
     borderRadius: 8,
     marginBottom: 15,
@@ -156,14 +172,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   linkText: {
-    textAlign: 'center',
-    color: '#007AFF',
+    textAlign: "center",
+    color: "#007AFF",
     fontSize: 16,
     marginTop: 10,
   },
   errorText: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
     marginBottom: 15,
   },
 });

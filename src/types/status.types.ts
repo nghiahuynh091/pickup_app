@@ -25,11 +25,35 @@ export interface CreateStatusRequest {
   };
 }
 
+export interface StatusWithId extends StatusDocument {
+  id: string;
+}
+
+export interface StatusQueryOptions {
+  orderDirection?: "asc" | "desc";
+  limitCount?: number;
+  filterByUser?: string;
+  filterBySession?: string;
+  startAfterDoc?: any;
+}
+
 export interface StatusContextType {
+  statuses: StatusWithId[];
   isLoading: boolean;
   error: string | null;
   createStatus: (statusData: CreateStatusRequest) => Promise<string | null>;
   clearError: () => void;
+  refreshStatuses: () => void;
+  subscribeToAllStatuses: (options?: StatusQueryOptions) => void;
+  subscribeToSessionStatuses: (sessionId: string, direction?: "asc" | "desc") => void;
+  subscribeToUserStatuses: (userId: string, direction?: "asc" | "desc", sentMessageQuery?: boolean, receivedMessageQuery?: boolean) => void;
+  unsubscribeFromStatuses: () => void;
+  loadMoreStatuses: () => Promise<void>;
+  hasMoreStatuses: boolean;
+  orderDirection: "asc" | "desc";
+  setOrderDirection: (direction: "asc" | "desc") => void;
+  statusLimit: number;
+  setStatusLimit: (limit: number) => void;
 }
 
 export interface StatusProviderProps {

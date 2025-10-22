@@ -1,6 +1,7 @@
 
 // UI Components
 export { Button } from './ui/Button';
+export { StatusList } from './ui/StatusList';
 
 export { default as HapticTab } from './ui/HapticTab';
 export { default as IconSymbol } from './ui/IconSymbol/IconSymbol';
