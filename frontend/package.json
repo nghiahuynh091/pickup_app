@@ -52,9 +52,9 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "@types/socket.io-client": "^1.4.36",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
-    "expo-module-scripts": "^5.0.7",
     "typescript": "~5.8.3"
   },
   "expo": {
