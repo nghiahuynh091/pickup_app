@@ -1,35 +1,21 @@
 import {
-  addDoc,
-  collection,
-  DocumentSnapshot,
-  getDocs,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-  QuerySnapshot,
-  serverTimestamp,
-  startAfter,
-  Unsubscribe,
-  where
+    addDoc,
+    collection,
+    DocumentSnapshot,
+    getDocs,
+    limit,
+    onSnapshot,
+    orderBy,
+    query,
+    QuerySnapshot,
+    serverTimestamp,
+    startAfter,
+    Unsubscribe,
+    where
 } from 'firebase/firestore';
 import { auth, db } from '../db/config';
 
-import { CreateStatusRequest, StatusDocument, StatusType } from '../types';
-
-export interface StatusQueryOptions {
-  orderDirection?: 'asc' | 'desc';
-  limitCount?: number;
-  sentMessageQuery?: boolean,
-  receivedMessageQuery?: boolean,
-  startAfterDoc?: DocumentSnapshot | null ;
-  filterByUser?: string;
-  filterBySession?: string;
-}
-
-export interface StatusWithId extends StatusDocument {
-  id: string;
-}
+import { CreateStatusRequest, StatusDocument, StatusQueryOptions, StatusType, StatusWithId } from '../types';
 
 export class StatusService {
 
