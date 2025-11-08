@@ -1,6 +1,8 @@
-export { NotificationProvider, useNotification } from './NotificationContext';
-export { AuthProvider, useAuth } from './AuthContext';
-export { StatusProvider, useStatus } from './StatusContext';
+export * from './AuthContext';
+export * from './FriendsContext';
+export * from './NotificationContext';
+export * from './SessionContext';
+export * from './StatusContext';
 
 // Add more context exports as you create them
 // export { AuthProvider, useAuth } from './AuthContext';

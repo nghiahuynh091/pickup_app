@@ -13,6 +13,9 @@ export { default as ThemedView } from './ui/ThemedView';
 // Navigation Components
 export { default as TabBarIcon } from './navigation/TabBarIcon';
 
+// Map Components
+// export { HangoutMapView } from './maps/HangoutMapView';
+
 // Common Components
 export { default as Collapsible } from './common/Collapsible';
 export { default as DOMCoolCode } from './common/DOMCoolCode';
