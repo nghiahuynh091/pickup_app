@@ -6,15 +6,13 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  StatusQueryOptions,
-  StatusService,
-  StatusWithId,
-} from "../services/StatusService";
+import { StatusService } from "../services/StatusService";
 import {
   CreateStatusRequest,
   StatusContextType,
   StatusProviderProps,
+  StatusQueryOptions,
+  StatusWithId,
 } from "../types";
 
 const StatusContext = createContext<StatusContextType | undefined>(undefined);

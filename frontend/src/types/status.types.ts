@@ -32,6 +32,8 @@ export interface StatusWithId extends StatusDocument {
 export interface StatusQueryOptions {
   orderDirection?: "asc" | "desc";
   limitCount?: number;
+  sentMessageQuery?: boolean;
+  receivedMessageQuery?: boolean;
   filterByUser?: string;
   filterBySession?: string;
   startAfterDoc?: any;
