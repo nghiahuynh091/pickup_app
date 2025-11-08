@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import { useStatus } from "@/src/context";
-import { StatusWithId } from "@/src/services/StatusService";
+import { StatusWithId } from "@/src/types";
 import ThemedText from "./ThemedText";
 import ThemedView from "./ThemedView";
 
