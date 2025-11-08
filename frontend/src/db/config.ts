@@ -1,0 +1,36 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Dynamic import for getReactNativePersistence to handle TypeScript issues
+const { initializeAuth, getReactNativePersistence } = require('firebase/auth');
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID
+};
+
+// Log config for debugging (remove in production)
+console.log('Firebase Config:', {
+  apiKey: firebaseConfig.apiKey ? 'Set' : 'Missing',
+  authDomain: firebaseConfig.authDomain ? 'Set' : 'Missing',
+  projectId: firebaseConfig.projectId ? 'Set' : 'Missing',
+});
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Auth with AsyncStorage persistence for React Native
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage)
+});
+
+export const db = getFirestore(app);
+export { app }; // Export the main app instance as well

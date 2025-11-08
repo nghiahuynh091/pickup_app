@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-native",
+    "paths": {
+      "@/*": ["./*"],
+      "@/src/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/context/*": ["./src/context/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/constants/*": ["./src/constants/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
+
+    }
+  },
+  "extends": "expo/tsconfig.base",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}

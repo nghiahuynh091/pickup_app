@@ -1,0 +1,48 @@
+// Firestore Security Rules for Status Collection
+// Copy these rules to your Firebase Console > Firestore Database > Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow authenticated users to read and write their own status documents
+    match /statuses/{document} {
+      allow read, write: if request.auth != null;
+      
+      // Additional security: only allow creating documents with the user's UID as fromUserId
+      allow create: if request.auth != null 
+        && request.auth.uid == resource.data.fromUserId;
+      
+      // Allow updates only if the user owns the document
+      allow update: if request.auth != null 
+        && request.auth.uid == resource.data.fromUserId;
+      
+      // Allow deletes only if the user owns the document
+      allow delete: if request.auth != null 
+        && request.auth.uid == resource.data.fromUserId;
+    }
+    
+    // For testing purposes - you may want to restrict this in production
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+
+/*
+IMPORTANT SETUP STEPS:
+
+1. Go to Firebase Console (https://console.firebase.google.com)
+2. Select your project
+3. Go to Firestore Database
+4. Click on "Rules" tab
+5. Replace the existing rules with the rules above
+6. Click "Publish"
+
+This will allow:
+- Authenticated users to create status documents
+- Users can only create documents with their own UID as fromUserId
+- Users can read/update/delete their own status documents
+- Basic read/write access for testing (remove in production)
+
+For production, you should create more specific rules based on your app's requirements.
+*/

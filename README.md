@@ -1,50 +1,163 @@
-# Welcome to your Expo app 👋
+# Pickup App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A real-time location sharing app for coordinating meetups with friends.
 
-## Get started
+## Project Structure
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+pickup_app/
+├── frontend/          # React Native/Expo mobile app
+│   ├── app/          # App screens and navigation
+│   ├── src/          # Source code
+│   │   ├── components/  # Reusable UI components
+│   │   ├── context/     # React contexts (Auth, Status, Session)
+│   │   ├── services/    # API and Socket services
+│   │   └── types/       # TypeScript type definitions
+│   └── package.json
+└── backend/           # Node.js Socket.IO server
+    ├── index.js      # Main server file
+    └── package.json
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Features
 
-## Learn more
+### Authentication 🔐
 
-To learn more about developing your project with Expo, look at the following resources:
+- Email/password registration and login
+- Anonymous guest access
+- Secure Firebase Authentication
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Real-time Location Sharing 📍
 
-## Join the community
+- Live location updates via Socket.IO
+- Join hangouts with friends
+- Status updates (On My Way, 5 Mins Left, Arrived)
 
-Join our community of developers creating universal apps.
+### Status System 📊
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Real-time status broadcasting
+- Filtering and pagination
+- Email-based user lookup
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- Expo CLI
+- iOS Simulator or Android Emulator
+
+### Backend Setup
+
+```bash
+# Navigate to backend directory
+cd backend
+
+# Install dependencies
+npm install
+
+# Start the server
+npm run dev
+```
+
+The server will run on `http://localhost:3000` with a health check at `/health`.
+
+### Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the Expo development server
+npx expo start
+```
+
+### Configuration
+
+1. **Firebase Setup**:
+
+   - Create a Firebase project
+   - Enable Authentication and Firestore
+   - Add your Firebase config to `.env`
+
+2. **Socket Connection**:
+   - Update the server IP in `frontend/src/services/SocketService.ts`
+   - For local development, use your machine's IP address
+
+## Development
+
+### Running Both Services
+
+Terminal 1 (Backend):
+
+```bash
+cd backend && npm run dev
+```
+
+Terminal 2 (Frontend):
+
+```bash
+cd frontend && npx expo start
+```
+
+### Testing
+
+1. Start both backend and frontend
+2. Open the app on a device/emulator
+3. Create an account or sign in
+4. Test the hangout features with location updates
+
+## Technology Stack
+
+### Frontend
+
+- React Native / Expo
+- TypeScript
+- Firebase (Auth & Firestore)
+- Socket.IO Client
+- Expo Router
+
+### Backend
+
+- Node.js
+- Express.js
+- Socket.IO
+- CORS enabled
+
+## API Endpoints
+
+### Socket Events
+
+**Client → Server:**
+
+- `joinHangout(hangoutId)` - Join a hangout room
+- `locationUpdate(data)` - Send location update
+- `statusUpdate(data)` - Send status update
+- `leaveHangout(hangoutId)` - Leave hangout
+
+**Server → Client:**
+
+- `newLocationUpdate(data)` - Receive location updates
+- `newStatusUpdate(data)` - Receive status updates
+- `userJoinedHangout(data)` - User joined notification
+- `userLeftHangout(data)` - User left notification
+
+### HTTP Endpoints
+
+- `GET /health` - Server health check
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the ISC License.
