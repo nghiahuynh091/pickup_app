@@ -5,23 +5,26 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as Notifications from "expo-notifications";
-import { Stack, Redirect } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 // import * as TaskManager from "expo-task-manager";
 
 import { useEffect } from "react";
 
 // Fixed imports - use individual imports for now
-import { AuthProvider, useAuth,LoadingScreen,StatusProvider } from "@/src";
-
+import { AuthProvider, StatusProvider } from "@/src";
+import { FriendsProvider } from "@/src/context/FriendsContext";
+import { SessionProvider } from "@/src/context/SessionContext";
 
 import { NotificationProvider } from "@/context/NotificationContext";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import * as firebase from "@/src/db/config";
 import "react-native-reanimated";
-import { useColorScheme } from "@/hooks/useColorScheme";
 
-
-console.log('Firebase initialized!', firebase.app.name ? `Success: ${firebase.app.name}` : 'Failed');
+console.log(
+  "Firebase initialized!",
+  firebase.app.name ? `Success: ${firebase.app.name}` : "Failed"
+);
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldPlaySound: true,
@@ -30,8 +33,6 @@ Notifications.setNotificationHandler({
     shouldShowList: true,
   }),
 });
-
-
 
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
@@ -70,17 +71,29 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <StatusProvider>
-        <NotificationProvider>
-          <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-            <Stack>
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </ThemeProvider>
-        </NotificationProvider>
-      </StatusProvider>
+      <FriendsProvider>
+        <StatusProvider>
+          <SessionProvider>
+            <NotificationProvider>
+              <ThemeProvider
+                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+              >
+                <Stack>
+                  <Stack.Screen
+                    name="(auth)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="(tabs)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen name="+not-found" />
+                </Stack>
+              </ThemeProvider>
+            </NotificationProvider>
+          </SessionProvider>
+        </StatusProvider>
+      </FriendsProvider>
     </AuthProvider>
   );
 }
