@@ -1,0 +1,28 @@
+{
+  "name": "pickup-app-backend",
+  "version": "1.0.0",
+  "description": "Backend server for the pickup app with Socket.IO and real-time location sharing",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "socket.io",
+    "express",
+    "realtime",
+    "location",
+    "hangout"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
