@@ -8,7 +8,10 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "update-ip": "node ./scripts/get-ip.js",
+    "clear-storage": "echo '⚠️  Use the app Settings screen or restart the app to clear storage'",
+    "debug-storage": "echo '🔍 Check the app console for storage debug info'"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",

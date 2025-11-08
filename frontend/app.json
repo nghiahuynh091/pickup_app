@@ -2,7 +2,7 @@
   "expo": {
     "name": "nghia_first_mobile_app",
     "slug": "nghia_first_mobile_app",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "nghiaapp",
@@ -12,7 +12,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "dev.expo.nghia-first-mobile-app",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "This app uses location to show your position during hangouts with friends.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses location to show your position during hangouts with friends.",
+        "NSLocationAlwaysUsageDescription": "This app uses location to track your position and share it with friends during hangouts."
       }
     },
     "android": {
@@ -21,8 +24,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "dev.expo.nghia_first_mobile_app",
-      "googleServicesFile": "./google-services.json",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +38,13 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to show your position during hangouts with friends.",
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to show your position during hangouts with friends."
+        }
+      ],
       [
         "expo-splash-screen",
         {

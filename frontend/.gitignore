@@ -32,16 +32,19 @@ yarn-error.*
 
 # local env files
 .env*.local
-
 .env
+
 # typescript
 *.tsbuildinfo
-#reference
+
+# reference
 reference/
 app-example
-
 sample_images/
 
+# Firebase sensitive files
 google-services.json
+
+# Native directories (when needed)
 /ios
 /android
